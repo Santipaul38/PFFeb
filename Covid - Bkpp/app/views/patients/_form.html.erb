@@ -1,0 +1,62 @@
+<%= form_with(model: patient) do |form| %>
+  <% if patient.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(patient.errors.count, "error") %> prohibited this patient from being saved:</h2>
+
+      <ul>
+        <% patient.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :document_number %>
+    <%= form.number_field :document_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :birth_date %>
+    <%= form.date_select :birth_date, start_year: (Time.now.year - 120), end_year: (Time.now.year - 1), selected: Date.today - 1 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :provice %>
+    <%= form.select(:provice, @provinces) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %>
+    <%= form.text_field :city %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select(:status, @status) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :patient_id %>
+    <%= form.collection_select(:patient_id, @patients, :id, :document_number, include_blank: 'Unknow') %>
+  </div>
+
+  <div class="field">
+    <%= form.label :test_group_id %>
+    <%= form.collection_select(:test_group_id, @groups, :id, :name) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

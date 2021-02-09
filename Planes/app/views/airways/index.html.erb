@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Airways</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Country</th>
+      <th>Name</th>
+      <th>Max Planes</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @airways.each do |airway| %>
+      <tr>
+        <td><%= airway.country %></td>
+        <td><%= airway.name %></td>
+        <td><%= airway.max_planes %></td>
+        <td><%= link_to 'Show', airway %></td>
+        <td><%= link_to 'Edit', edit_airway_path(airway) %></td>
+        <td><%= link_to 'Destroy', airway, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Airway', new_airway_path %>

@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Item Carts</h1>
+
+<form action="/item_carts" method="GET">
+
+  Brand or Model: <input type="text" name="b_m" placeholder="Brand or Model" value="<%= @b_m %>"/>
+
+  <input type="submit", value="Filter" />
+
+</form>
+
+<br>
+
+<form action="/item_carts" method="GET">
+
+  MIN: <input type="text" name="minimum" placeholder="Minimum price" value="<%= @minimum %>"/>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+  MAX :<input type="text" name="maximum" placeholder="Maximum price" value="<%= @maximum %>"/>
+
+  <input type="submit", value="Filter by total price" />
+
+</form>
+
+<br>
+
+<table>
+  <thead>
+    <tr>
+      <th>RGB Adds</th>
+      <th>Type</th>
+      <th>Component</th>
+      <th>Quantity</th>
+      <th>Unit price</th>
+      <th>Total Price</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody style="text-align: center">
+    <% @item_carts.each do |item_cart| %>
+    <% if item_cart.component.rgb == true %>
+      <tr style="background-color: #40FF00">
+    <% else %>
+      <tr>
+    <% end %>
+        <% if item_cart.component.rgb == true %>
+          <td> + 25% </td>
+        <% else %>
+          <td></td>
+        <% end %>
+        <td><%= item_cart.component.category %></td>
+        <td><%= item_cart.component.model %></td>
+        <td><%= item_cart.quantity %></td>
+        <td><%= item_cart.unit_price %></td>
+        <td><%= item_cart.price %></td>
+        <td><%= link_to 'Show', item_cart %></td>
+        <td><%= link_to 'Edit', edit_item_cart_path(item_cart) %></td>
+        <td><%= link_to 'Destroy', item_cart, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Item Cart', carts_path %>

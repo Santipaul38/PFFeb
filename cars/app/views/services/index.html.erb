@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Services</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>Employee</th>
+      <th>Observation</th>
+      <th>Vehicle Patent</th>
+      <th>Vehicle Model</th>
+      <th>Items count</th>
+      <th>Total Cost</th>
+      <th colspan="5"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @services.each do |service| %>
+      <tr style="text-align: center">
+        <td><%= service.time %></td>
+        <td><%= service.employee %></td>
+        <td><%= service.observation %></td>
+        <td><%= service.vehicle.patent %></td>
+        <td><%= service.vehicle.model %></td>
+        <td><%= service.itemCount %></td>
+        <td><%= service.itemCost %></td>
+        <td><%= link_to 'Show', service %></td>
+        <td><%= link_to 'Edit', edit_service_path(service) %></td>
+        <td><%= link_to 'Destroy', service, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Add Item', new_item_path(:service_id=> service.id), class: "history-but"%></td>
+        <td><%= link_to "Show items", items_path(:service_id=> service.id), class: "history-but"%></td>
+      </tr>
+    <% end %>
+  </tbody>rails
+</table>
+
+<br>
+
+<%= link_to 'New Service', new_service_path %>

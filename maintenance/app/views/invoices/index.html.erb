@@ -1,0 +1,61 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Invoices</h1>
+
+<form action="/invoices" method="GET">
+  <select name="brand_id"> 
+      <option disabled selected value> Select a Brand </option> 
+      <% Brand.all.each do | b, index | %>
+        <option value="<%= b.id %>" <%= b.id.to_s == @brand_id ? "selected" : "" %>><%= b.name %></option>
+      <% end -%>
+  </select>
+
+  <select name="replacement_id"> 
+      <option disabled selected value> Select a Replacement </option> 
+      <% Replacement.all.each do | b, index | %>
+        <option value="<%= b.id %>" <%= b.id.to_s == @replacement_id ? "selected" : "" %>><%= b.name %></option>
+      <% end -%>
+  </select>
+
+  <br>
+
+  Price: <input type="text" name="price" value="<%= @price %>" />
+  <select name="option"> 
+      <option disabled selected value> Bigger or Smaller </option> 
+      <% @options.each do | b, index | %>
+        <option value="<%= index %>" <%= index.to_s == @option ? "selected" : "" %>><%= b %></option>
+      <% end -%>
+  </select>
+
+
+  <input type="submit", value="Filter" />
+</form>
+
+<br>
+
+<table>
+  <thead>
+    <tr>
+      <th>Bill date</th>
+      <th>Total Price</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @invoices.each do |invoice| %>
+      <tr>
+        <td><%= invoice.bill_date %></td>
+        <td><%= invoice.price %></td>
+        <td><%= link_to 'Show', invoice %></td>
+        <td><%= link_to 'Edit', edit_invoice_path(invoice) %></td>
+        <td><%= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to "Add Item", new_invoice_item_path(:invoice_id => invoice.id), class: "history-but" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Invoice', new_invoice_path %>
